@@ -9,6 +9,7 @@ import { CobrancaModule } from './cobranca/cobranca.module';
 import { PagamentoModule } from './linkdepagamento/pagamento.module';
 import { PrismaService } from './prisma/prisma.service';
 import { AsaasService } from './services/asaas.service';
+import { TokenModule } from './token/token.module';
 import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
@@ -19,7 +20,8 @@ import { UsuarioModule } from './usuario/usuario.module';
     CobrancaModule,
     ConfigModule,
     PagamentoModule,
-    UsuarioModule
+    UsuarioModule,
+    TokenModule
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService, AsaasService],
