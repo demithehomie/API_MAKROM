@@ -14,19 +14,14 @@ const passport_local_1 = require("passport-local");
 const passport_1 = require("@nestjs/passport");
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
-const bcrypt = require("bcrypt");
 let LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)(passport_local_1.Strategy) {
     constructor(authService) {
         super();
         this.authService = authService;
     }
-    async validateUser(email, senha) {
-        const user = await this.prisma.getClient().usuario.findUnique({ where: { email } });
+    async validate(email, senha) {
+        const user = await this.authService.validateUser(email, senha);
         if (!user) {
-            throw new common_1.UnauthorizedException();
-        }
-        const isValidPassword = await bcrypt.compare(senha, user.senha);
-        if (!isValidPassword) {
             throw new common_1.UnauthorizedException();
         }
         return user;

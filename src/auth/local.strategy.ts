@@ -10,17 +10,11 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     super();
   }
 
-  async validateUser(email: string, senha: string): Promise<any> {
-    const user = await this.prisma.getClient().usuario.findUnique({ where: { email } });
+  async validate(email: string, senha: string): Promise<any> {
+    const user = await this.authService.validateUser(email, senha);
     if (!user) {
       throw new UnauthorizedException();
     }
-
-    const isValidPassword = await bcrypt.compare(senha, user.senha);
-    if (!isValidPassword) {
-      throw new UnauthorizedException();
-    }
-
     return user;
   }
   

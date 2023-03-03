@@ -16,9 +16,12 @@ exports.UsuarioController = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
 const bcrypt = require("bcrypt");
+const passport_1 = require("@nestjs/passport");
+const auth_service_1 = require("../auth/auth.service");
 let UsuarioController = class UsuarioController {
-    constructor(prisma) {
+    constructor(prisma, authService) {
         this.prisma = prisma;
+        this.authService = authService;
     }
     async findAll() {
         const users = await this.prisma.getClient().usuario.findMany();
@@ -53,6 +56,9 @@ let UsuarioController = class UsuarioController {
         });
         return user;
     }
+    async login(req) {
+        return this.authService.login(req.user);
+    }
 };
 __decorate([
     (0, common_1.Get)(),
@@ -82,9 +88,18 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UsuarioController.prototype, "delete", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('local')),
+    (0, common_1.Post)('login'),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsuarioController.prototype, "login", null);
 UsuarioController = __decorate([
     (0, common_1.Controller)('usuario'),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        auth_service_1.AuthService])
 ], UsuarioController);
 exports.UsuarioController = UsuarioController;
 //# sourceMappingURL=usuario.controller.js.map

@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TokenModule = void 0;
 const common_1 = require("@nestjs/common");
-const auth_module_1 = require("../auth/auth.module");
 const prisma_service_1 = require("../prisma/prisma.service");
 const usuario_module_1 = require("../usuario/usuario.module");
 const token_controller_1 = require("./token.controller");
@@ -17,7 +16,6 @@ let TokenModule = class TokenModule {
 TokenModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            auth_module_1.AuthModule,
             usuario_module_1.UsuarioModule
         ],
         controllers: [token_controller_1.TokenController],

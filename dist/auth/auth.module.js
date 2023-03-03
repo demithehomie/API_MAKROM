@@ -11,6 +11,8 @@ const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const passport_1 = require("@nestjs/passport");
 const prisma_service_1 = require("../prisma/prisma.service");
+const token_controller_1 = require("../token/token.controller");
+const token_module_1 = require("../token/token.module");
 const auth_service_1 = require("./auth.service");
 const constants_1 = require("./constants");
 const jwt_strategy_1 = require("./jwt.strategy");
@@ -21,6 +23,7 @@ AuthModule = __decorate([
     (0, common_1.Module)({
         imports: [
             passport_1.PassportModule,
+            token_module_1.TokenModule,
             jwt_1.JwtModule.register({
                 secret: constants_1.jwtConstants.secret,
                 signOptions: { expiresIn: '60s' },
@@ -30,11 +33,13 @@ AuthModule = __decorate([
             auth_service_1.AuthService,
             local_strategy_1.LocalStrategy,
             jwt_strategy_1.JwtStrategy,
-            prisma_service_1.PrismaService
+            prisma_service_1.PrismaService,
+            token_controller_1.TokenController
         ],
         exports: [
             jwt_1.JwtModule,
             auth_service_1.AuthService,
+            token_module_1.TokenModule
         ]
     })
 ], AuthModule);

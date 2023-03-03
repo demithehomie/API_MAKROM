@@ -1,7 +1,9 @@
 import { PrismaService } from 'src/prisma/prisma.service';
+import { AuthService } from 'src/auth/auth.service';
 export declare class UsuarioController {
     private readonly prisma;
-    constructor(prisma: PrismaService);
+    private authService;
+    constructor(prisma: PrismaService, authService: AuthService);
     findAll(): Promise<import(".prisma/client").Usuario[]>;
     create(data: {
         email: string;
@@ -12,4 +14,7 @@ export declare class UsuarioController {
         email: string;
     }): Promise<import(".prisma/client").Usuario>;
     delete(id: string): Promise<import(".prisma/client").Usuario>;
+    login(req: any): Promise<{
+        access_token: string;
+    }>;
 }
