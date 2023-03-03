@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TokenController = void 0;
 const common_1 = require("@nestjs/common");
@@ -16,27 +19,28 @@ let TokenController = class TokenController {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async create(email, hash) {
-        let objToken = await this.prisma.getClient().token.findUnique({ where: { email } });
-        if (objToken) {
-            this.prisma.getClient().token.update({
-                where: { email },
-                data: { email },
-            });
-        }
-        else {
-            this.prisma.getClient().token.create({
-                data: { email, hash }
-            });
-        }
+    async save(hash, email) {
+        const upsertUser = await this.prisma.getClient().token.upsert({
+            where: {
+                email,
+            },
+            update: {
+                hash,
+            },
+            create: {
+                email: email,
+                hash: hash,
+            },
+        });
     }
 };
 __decorate([
     (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
-], TokenController.prototype, "create", null);
+], TokenController.prototype, "save", null);
 TokenController = __decorate([
     (0, common_1.Controller)('token'),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService])
