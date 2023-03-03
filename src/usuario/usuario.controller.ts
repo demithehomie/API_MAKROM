@@ -20,7 +20,7 @@ export class UsuarioController {
     return users;
   }
 
-  @Post()
+  @Post('cadastrar')
   async create(@Body() data: { email: string, senha: string}) {
     const user = await this.prisma.getClient().usuario.create({
       data: {
