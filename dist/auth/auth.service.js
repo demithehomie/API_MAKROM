@@ -14,12 +14,10 @@ const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const bcrypt = require("bcrypt");
 const prisma_service_1 = require("../prisma/prisma.service");
-const token_controller_1 = require("../token/token.controller");
 let AuthService = class AuthService {
-    constructor(prisma, jwtService, token) {
+    constructor(prisma, jwtService) {
         this.prisma = prisma;
         this.jwtService = jwtService;
-        this.token = token;
     }
     async validateUser(email, senha) {
         const user = await this.prisma.getClient().usuario.findUnique({ where: { email } });
@@ -35,7 +33,6 @@ let AuthService = class AuthService {
     async login(usuario) {
         const payload = { sub: usuario.id, email: usuario.email };
         const token = this.jwtService.sign(payload);
-        this.token.create(token, usuario.email);
         return {
             access_token: token,
         };
@@ -44,8 +41,7 @@ let AuthService = class AuthService {
 AuthService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService,
-        jwt_1.JwtService,
-        token_controller_1.TokenController])
+        jwt_1.JwtService])
 ], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map

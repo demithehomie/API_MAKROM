@@ -18,7 +18,6 @@ const cobranca_module_1 = require("./cobranca/cobranca.module");
 const pagamento_module_1 = require("./linkdepagamento/pagamento.module");
 const prisma_service_1 = require("./prisma/prisma.service");
 const asaas_service_1 = require("./services/asaas.service");
-const token_module_1 = require("./token/token.module");
 const usuario_module_1 = require("./usuario/usuario.module");
 let AppModule = class AppModule {
 };
@@ -32,7 +31,6 @@ AppModule = __decorate([
             config_1.ConfigModule,
             pagamento_module_1.PagamentoModule,
             usuario_module_1.UsuarioModule,
-            token_module_1.TokenModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService, prisma_service_1.PrismaService, asaas_service_1.AsaasService],
