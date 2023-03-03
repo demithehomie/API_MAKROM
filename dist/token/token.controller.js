@@ -8,33 +8,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TokenController = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
-const bcrypt = require("bcrypt");
 let TokenController = class TokenController {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async create(data) {
-        const token = await this.prisma.getClient().token.create({
-            data: {
-                email: data.email,
-                hash: bcrypt.hashSync(data.hash, 8),
-            },
-        });
-        return token;
+    async create(email, hash) {
+        let objToken = await this.prisma.getClient().token.findUnique({ where: { email } });
+        if (objToken) {
+            this.prisma.getClient().token.update({
+                where: { email },
+                data: { email },
+            });
+        }
+        else {
+            this.prisma.getClient().token.create({
+                data: { email, hash }
+            });
+        }
     }
 };
 __decorate([
     (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], TokenController.prototype, "create", null);
 TokenController = __decorate([
