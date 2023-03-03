@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from 'src/auth/auth.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('usuario')
 export class UsuarioController {
@@ -11,7 +12,9 @@ export class UsuarioController {
     private authService: AuthService
     ) {}
 
-  @Get()
+    
+  @UseGuards(JwtAuthGuard)
+  @Get('listar')
   async findAll() {
     const users = await this.prisma.getClient().usuario.findMany();
     return users;

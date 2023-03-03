@@ -18,6 +18,7 @@ const prisma_service_1 = require("../prisma/prisma.service");
 const bcrypt = require("bcrypt");
 const passport_1 = require("@nestjs/passport");
 const auth_service_1 = require("../auth/auth.service");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 let UsuarioController = class UsuarioController {
     constructor(prisma, authService) {
         this.prisma = prisma;
@@ -61,7 +62,8 @@ let UsuarioController = class UsuarioController {
     }
 };
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)('listar'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
