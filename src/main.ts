@@ -7,7 +7,9 @@ async function bootstrap() {
   app.enableCors();
   
   app.use(cors({
-    origin: 'http://localhost:8100' //url do seu app ionic
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   }));
 
   await app.listen(3000);
