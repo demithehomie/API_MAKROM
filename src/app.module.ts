@@ -1,5 +1,6 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { IonicCorsMiddleware } from 'middlewares/ionic-cors.middleware';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AssinaturaModule } from './assinatura/assinatura.module';
@@ -22,7 +23,11 @@ import { UsuarioModule } from './usuario/usuario.module';
     UsuarioModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService, AsaasService],
+  providers: [AppService, PrismaService, AsaasService, IonicCorsMiddleware],
   exports: [PrismaService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(IonicCorsMiddleware).forRoutes('*');
+  }
+}
