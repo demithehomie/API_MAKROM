@@ -9,4 +9,4 @@ export class AuthLoginDTO {
     @MinLength(6)
     password:string;
 
-}
+} //

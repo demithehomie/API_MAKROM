@@ -52,7 +52,7 @@ export class MailingService {
   generateRandomNumericCode(): string {
     const randomNum = Math.floor(Math.random() * 100000);
     const code = randomNum.toString();
-    return code.padStart(5, '0');
+    return code.padStart(5  , '0');
   }
   
  
@@ -63,7 +63,7 @@ export class MailingService {
       this.mailerService
         .sendMail({
           transporterName: 'gmail',
-          to: 'engdemeferreira@gmail.com', // list of receivers
+          to: 'thalis.alcapone@gmail.com', // list of receivers
           from: 'demithehomie@gmail.com', // sender address
           subject: 'Verficiaction Code', // Subject line
           template: 'action',

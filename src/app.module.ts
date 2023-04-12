@@ -11,10 +11,18 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { MailingModule } from './mailing/mailing.module';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 
+import { ClienteModule } from './cliente/client.module';
+import { CobrancaModule } from './cobranca/cobranca.module';
+import { AssinaturaModule } from './assinatura/assinatura.module';
+
+
 //import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 
 @Module({
   imports: [
+    AssinaturaModule,
+    ClienteModule,
+    CobrancaModule,
     MailingModule,
     ConfigModule.forRoot({
       isGlobal: true,

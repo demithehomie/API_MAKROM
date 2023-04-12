@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { IsString, IsEmail, MinLength, IsOptional, IsDateString, IsEnum } from "class-validator";
 import { Role } from "src/enums/role.enum";
 
@@ -13,7 +14,7 @@ export class CreateUserDTO {
     @MinLength(6)
     password: string;
 
-    @IsOptional()
+    @IsOptional() //
     @IsDateString()
     birthAt: string;
 
