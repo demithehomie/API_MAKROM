@@ -9,7 +9,7 @@ const ASAAS_API_KEY = process.env.ASAAS_API_KEY;
 @Controller('paymentLinks')
 export class PagamentoController {
 
-  private readonly asaasApiUrl = 'https://www.asaas.com/api/v3';
+  private readonly asaasApiUrl = 'https://sandbox.asaas.com/api/v3';
 
   constructor(private httpService: HttpService) {}
 

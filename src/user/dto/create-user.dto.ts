@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { IsString, IsEmail, MinLength, IsOptional, IsDateString, IsEnum } from "class-validator";
+import { IsString, IsEmail, MinLength, MaxLength, IsOptional, IsDateString, IsEnum } from "class-validator";
 import { Role } from "src/enums/role.enum";
 
 export class CreateUserDTO {
@@ -11,10 +11,36 @@ export class CreateUserDTO {
     email: string;
 
     @IsString()
-    @MinLength(6)
     password: string;
 
-    @IsOptional() //
+    @IsString()
+    cpfCnpj   :string; 
+
+    @IsString()
+    company   :string; 
+
+    @IsString()
+    mobilePhone   :string;  
+
+    @IsString()
+    phone     :string; 
+    
+    @IsString()
+    postalCode       :string;
+    
+    @IsString()
+    address   :string; 
+    
+    @IsString()
+    state     :string;     
+    
+    @IsString()
+    city      :string; 
+    
+    @IsString()   
+    addressNumber    :string;
+  
+    @IsOptional() 
     @IsDateString()
     birthAt: string;
 

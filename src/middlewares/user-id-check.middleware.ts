@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {NestMiddleware, BadRequestException} from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 

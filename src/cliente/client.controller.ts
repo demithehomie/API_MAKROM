@@ -6,7 +6,7 @@ import { HttpService } from '@nestjs/axios';
 require('dotenv').config();
 
 // const ASAAS_API_KEY = process.env.ASAAS_API_KEY;
-const ASAAS_API_KEY = "$aact_YTU5YTE0M2M2N2I4MTliNzk0YTI5N2U5MzdjNWZmNDQ6OjAwMDAwMDAwMDAwMDAwNTA4OTE6OiRhYWNoX2M2MDM1MmRjLTRmYjgtNDQ1Ni1hZGQwLTg3NjA2MjIxNDMyYg==";
+const ASAAS_API_KEY = "$aact_YTU5YTE0M2M2N2I4MTliNzk0YTI5N2U5MzdjNWZmNDQ6OjAwMDAwMDAwMDAwMDAwNTA4OTE6OiRhYWNoXzhiZTlkZDliLWViYzgtNGRkOC1iNzhjLTBjZjg5NTQwZWQ0MA==";
 
 @Controller('customers')
 export class ClienteController {
@@ -24,7 +24,7 @@ export class ClienteController {
       const response = await axios.post(url, datacliente, { headers });
       return response.data;
     }
-  //
+  
     @Get()
     async getCustomers() {
       const url = `${this.asaasApiUrl}/customers`;

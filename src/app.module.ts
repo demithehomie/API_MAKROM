@@ -1,5 +1,5 @@
 import {APP_GUARD} from '@nestjs/core';
-import { Module, forwardRef } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, forwardRef } from '@nestjs/common';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -10,10 +10,12 @@ import { ConfigModule } from '@nestjs/config';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { MailingModule } from './mailing/mailing.module';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
-
+//import { } from 'middlewares/i'
 import { ClienteModule } from './cliente/client.module';
 import { CobrancaModule } from './cobranca/cobranca.module';
 import { AssinaturaModule } from './assinatura/assinatura.module';
+import { IonicCorsMiddleware } from './middlewares/ionic-cors.middleware';
+import { PrismaService } from './prisma/prisma.service';
 
 
 //import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
@@ -46,11 +48,15 @@ import { AssinaturaModule } from './assinatura/assinatura.module';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService //, {
+  providers: [AppService, PrismaService, IonicCorsMiddleware //, {
     //provide: APP_GUARD,
    // useClass: ThrottlerGuard
  // }
 ],
   exports: [AppService]
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(IonicCorsMiddleware).forRoutes('*');
+  }
+}
