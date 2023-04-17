@@ -11,4 +11,4 @@ export class PDFService {
     // Retorna o documento PDF gerado
     return doc;
   }
-}
+} //
