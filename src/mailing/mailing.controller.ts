@@ -9,3 +9,4 @@ export class MailingController {
     this.mailingService.sendMail();
   }
 }
+//

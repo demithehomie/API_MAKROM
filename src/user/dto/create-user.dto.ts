@@ -30,6 +30,9 @@ export class CreateUserDTO {
     
     @IsString()
     address   :string; 
+
+    @IsString()
+    province     :string;     
     
     @IsString()
     state     :string;     
@@ -39,6 +42,9 @@ export class CreateUserDTO {
     
     @IsString()   
     addressNumber    :string;
+
+    @IsString()   
+    additionalEmails :string;
   
     @IsOptional() 
     @IsDateString()
@@ -48,5 +54,8 @@ export class CreateUserDTO {
     @IsEnum(Role)
     role: number;
 
+
+    @IsString()   
+    observations :string;
 }
 //
