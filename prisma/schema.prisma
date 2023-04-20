@@ -1,0 +1,43 @@
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+
+model User {
+  id        Int       @id @default(autoincrement()) @db.UnsignedInt
+  name      String    @db.VarChar(63)
+  email     String    @db.VarChar(127) @unique
+  password  String    @db.VarChar(127)
+  cpfCnpj   String    @db.VarChar(127)
+  mobilePhone   String @default("mobilePhone") @db.VarChar(12)
+  phone     String     @db.VarChar(12)
+  company    String     @db.VarChar(50)
+  postalCode       String  @default("postalCode")   @db.VarChar(9)
+  address   String     @db.VarChar(250)
+  state     String     @db.VarChar(250)
+  province     String  @default("province")   @db.VarChar(250)
+  city      String    @db.VarChar(50)
+  addressNumber    String    @db.VarChar(5)
+  complement     String     @default("complement") @db.VarChar(250)
+  municipalInscription     String  @default("municipalinscription")   @db.VarChar(50)
+  stateInscription    String   @default("stateinscription")  @db.VarChar(50)
+  additionalEmails    String   @default("additionalEmails")  @db.VarChar(50)
+  observations     String   @default("observations")  @db.VarChar(250)
+
+
+  birthAt   DateTime? @db.DateTime(0)
+  role      Int   @db.Int
+  
+
+  createdAt DateTime  @default(now()) @db.Timestamp(0)
+  updatedAt DateTime  @default(now()) @db.Timestamp(0)
+
+  @@map("users")
+}
